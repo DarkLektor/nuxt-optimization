@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
-    <div v-for="item in items" :key="item.id" class="item">
+    <div v-for="(item, index) in items" :key="item.id" class="item">
       <h5>{{ item.title }}</h5>
-      <img height="400" width="400" :src="item.url" :alt="item.title" loading="lazy">
+      <img height="400" width="400" :src="item.url" :alt="item.title" :loading="index > 8 ? 'lazy' : 'eager'">
     </div>
   </div>
 </template>
