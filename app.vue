@@ -2,16 +2,15 @@
   <div class="wrapper">
     <div v-for="item in items" :key="item.id" class="item">
       <h5>{{ item.title }}</h5>
-      <img height="400" width="400" :src="item.url" :alt="item.title">
+      <img height="400" width="400" :src="item.url" :alt="item.title" loading="lazy">
     </div>
   </div>
 </template>
 <script setup>
 
 const items = ref([])
-fetch('https://jsonplaceholder.typicode.com/photos?_limit=100')
-    .then(response => response.json())
-    .then(json => items.value = json)
+const {data} = await useAsyncData('items', () => fetch('https://jsonplaceholder.typicode.com/photos?_limit=100'), {transform: response => response.json()});
+items.value = data.value
 </script>
 <style>
 .wrapper {
